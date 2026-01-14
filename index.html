@@ -390,11 +390,11 @@
                         <div class="gp-card" onclick="expandGp(this)">
                             <div class="rank-badge">第1回 優勝</div>
                             <div class="gp-inner">
-                                <img src="winner1.png" class="gp-photo" alt="Winner1" style="background:#ccc;">
+                                <img src="winner1.jpg" class="gp-photo" alt="Winner1" style="background:#ccc;">
                                 <div class="gp-info">
-                                    <h3 class="gp-name">優勝者 小林　美空さん</h3>
+                                    <h3 class="gp-name">優勝者 Aさん</h3>
                                     <div class="gp-details">
-                                        <p class="gp-comment">「18期初代王者」</p>
+                                        <p class="gp-comment">「チーム一丸となって頑張りました！最高の思い出です。」</p>
                                         <a href="plan1.pdf" target="_blank" class="plan-link">📄 企画書を見る</a>
                                     </div>
                                 </div>
@@ -404,11 +404,11 @@
                         <div class="gp-card" onclick="expandGp(this)">
                             <div class="rank-badge rank-2">第2回 優勝</div>
                             <div class="gp-inner">
-                                <img src="winner2.PNG" class="gp-photo" alt="Winner2" style="background:#ccc;">
+                                <img src="winner2.jpg" class="gp-photo" alt="Winner2" style="background:#ccc;">
                                 <div class="gp-info">
-                                    <h3 class="gp-name">優勝者 眞木　暖翔さん</h3>
+                                    <h3 class="gp-name">優勝者 Bさん</h3>
                                     <div class="gp-details">
-                                        <p class="gp-comment">「教祖爆誕！！！！」</p>
+                                        <p class="gp-comment">「デザインにこだわりました。選ばれて光栄です。」</p>
                                         <a href="plan2.pdf" target="_blank" class="plan-link">📄 企画書を見る</a>
                                     </div>
                                 </div>
@@ -420,9 +420,9 @@
                             <div class="gp-inner">
                                 <img src="winner3.jpg" class="gp-photo" alt="Winner3" style="background:#ccc;">
                                 <div class="gp-info">
-                                    <h3 class="gp-name">優勝者 辻本　優紀奈さん</h3>
+                                    <h3 class="gp-name">優勝者 Cさん</h3>
                                     <div class="gp-details">
-                                        <p class="gp-comment">「汚名返上　Ms.2位」</p>
+                                        <p class="gp-comment">「プログラミングが大変でしたが、完成してよかったです。」</p>
                                         <a href="plan3.pdf" target="_blank" class="plan-link">📄 企画書を見る</a>
                                     </div>
                                 </div>
@@ -565,10 +565,13 @@
         }
 
         function openGameWindow() {
+            // ▼ ここが修正箇所：指定されたUnity PlayのURLに変更
+            const url = "https://play.unity.com/api/v1/games/game/f7d43d80-f939-4b92-9022-1f8008012e76/build/latest/frame";
+            
             const w = 960; const h = 600;
             const left = (screen.width - w) / 2;
             const top = (screen.height - h) / 2;
-            window.open("kentei_folder/index.html", "Game", `width=${w},height=${h},top=${top},left=${left},resizable=yes`);
+            window.open(url, "Game", `width=${w},height=${h},top=${top},left=${left},resizable=yes`);
         }
 
         /* --- GPカードのアクション --- */
