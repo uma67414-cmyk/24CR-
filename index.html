@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18期生 卒業アルバム - Pop-up Book</title>
+    <style>
+        /* --- 設定変数 --- */
+        :root {
+            --book-width: 860px;
+            --book-height: 640px;
+            --book-depth: 50px;
+            --paper-color: #fdf5e6;
+            
+            /* テーマカラー */
+            --c-index: #fffacd;
+            --c-photo: #87ceeb;
+            --c-works: #98fb98;
+            --c-video: #ff6b6b;
+            --c-kentei:#ffd700;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            display: flex; align-items: center; justify-content: center;
+            min-height: 100vh; background-color: #2e7d32;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            perspective: 2500px;
+            overflow: hidden;
+        }
+
+        /* --- 背景装飾 --- */
+        .sakura-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+        .tree { position: fixed; bottom: 0; width: 35vw; height: 90vh; object-fit: contain; z-index: 1; opacity: 0.9; pointer-events: none; }
+        .tree-left { left: -2vw; }
+        .tree-right { right: -2vw; transform: scaleX(-1); }
+        .top-left-title { 
+            position: absolute; top: 30px; left: 30px; 
+            font-size: 1.5rem; color: #fff; border-left: 6px solid #ffd700; 
+            padding-left: 15px; z-index: 100; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6); 
+            letter-spacing: 0.05em;
+        }
+
+        /* --- 本の全体コンテナ --- */
+        .scene {
+            position: relative;
+            width: var(--book-width);
+            height: var(--book-height);
+            transform-style: preserve-3d;
+            transform: rotateX(25deg) translateY(30px);
+            transition: transform 1s ease;
+            z-index: 50;
+        }
+
+        .book {
+            position: relative; width: 100%; height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        /* 裏表紙 */
+        .back-cover {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #5d4037; border-radius: 6px;
+            box-shadow: 20px 30px 50px rgba(0,0,0,0.5);
+        }
+        .back-cover::before {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 100%; height: var(--book-depth);
+            background: linear-gradient(to bottom, #fff 0%, #ddd 100%);
+            transform-origin: bottom; transform: rotateX(-90deg);
+        }
+        .back-cover::after {
+            content: ''; position: absolute; right: 0; top: 0;
+            width: var(--book-depth); height: 100%;
+            background: #fff; transform-origin: right; transform: rotateY(90deg);
+        }
+
+        /* 前表紙 */
+        .front-cover {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            transform-origin: left;
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            z-index: 100;
+        }
+        .front-cover-outer {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden;
+            background-image: url('antique_cover.jpg'); background-size: cover;
+            border: 2px solid #3e2723; border-radius: 0 6px 6px 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .front-cover-outer::before {
+            content: ''; position: absolute; top: 0; right: 0; 
+            width: var(--book-depth); height: 100%;
+            background: #3e2723; transform-origin: right; transform: rotateY(90deg);
+        }
+
+        /* 表紙デザイン */
+        .cover-plate {
+            background: rgba(255,255,255,0.95); width: 85%; height: 85%;
+            border: 6px double #8b4513; box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transform: translateZ(2px); padding: 20px; box-sizing: border-box;
+        }
+        .cover-logo-container {
+            width: 100%; aspect-ratio: 16 / 9;
+            display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+        }
+        .cover-logo-container img { width: 100%; height: 100%; object-fit: contain; }
+        .cover-title {
+            margin: 10px 0 20px 0; font-size: 2rem; color: #333;
+            border-bottom: 3px solid #5d4037; padding-bottom: 10px; width: 90%; text-align: center;
+        }
+        .cover-names {
+            font-size: 1.1rem; color: #444; text-align: center; line-height: 1.8;
+            margin-bottom: 30px; font-weight: bold;
+        }
+        .start-btn {
+            padding: 15px 50px; background: #8b4513; color: #fff;
+            border: none; font-size: 1.5rem; cursor: pointer; border-radius: 50px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: transform 0.2s, background 0.2s; animation: pulse 2s infinite;
+        }
+        .start-btn:hover { background: #5d4037; transform: scale(1.1); }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        .front-cover-inner {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden; background-color: var(--paper-color);
+            transform: rotateY(180deg); border-left: 5px solid rgba(0,0,0,0.1);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .left-page-content { width: 80%; text-align: center; opacity: 0; transition: opacity 0.5s; }
+        .book-open .left-page-content { opacity: 1; transition-delay: 0.5s; }
+
+        /* コンテンツページ */
+        .pages-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            transform-style: preserve-3d; z-index: 50;
+        }
+        .page-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--paper-color); border-left: 1px solid #ddd;
+            display: none; transform-style: preserve-3d;
+        }
+        .page-layer.active { display: block; }
+
+        /* ポップアップオブジェクト共通 */
+        .popup-object {
+            position: absolute; transform-origin: bottom center;
+            transform: rotateX(-90deg); opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s;
+            left: 50%; top: 50%;
+        }
+        .book-open .page-layer.active .popup-object.show {
+            transform: translate(-50%, -50%) rotateX(0deg); opacity: 1;
+        }
+        
+        .card {
+            background: #fff; padding: 15px; border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15); text-align: center; backface-visibility: hidden;
+        }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.3s; }
+        .delay-3 { transition-delay: 0.5s; }
+
+        /* --- GP作品ページ専用CSS --- */
+        
+        /* 3つのカードをまとめるボード */
+        .gp-board-container {
+            width: 500px; height: 500px; /* ボード全体のサイズ */
+            display: flex; flex-direction: column;
+            gap: 15px;
+            /* 少し手前に傾けて見やすくする */
+            margin-top: -20px;
+        }
+
+        .gp-card {
+            flex: 1; /* 初期状態は均等 */
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
+            overflow: hidden;
+            cursor: pointer;
+            transition: flex 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            position: relative;
+        }
+
+        /* 順位バッジ（色変更箇所） */
+        .rank-badge {
+            position: absolute; top: 0; left: 0;
+            background: orange; /* 第一回：オレンジ */
+            color: #fff;
+            font-weight: bold; padding: 5px 15px;
+            font-size: 0.9rem;
+            border-radius: 0 0 10px 0;
+            z-index: 5;
+        }
+        .rank-2 { background: red; } /* 第二回：赤 */
+        .rank-3 { background: #ff69b4; } /* 第三回：ピンク (HotPink) */
+
+        /* 内部レイアウト */
+        .gp-inner {
+            display: flex; width: 100%; height: 100%;
+            align-items: center;
+        }
+
+        /* 写真エリア */
+        .gp-photo {
+            width: 80px; height: 80px;
+            border-radius: 50%; object-fit: cover;
+            border: 3px solid #eee;
+            margin-right: 20px;
+            margin-left: 10px;
+            transition: all 0.5s;
+        }
+
+        /* テキストエリア */
+        .gp-info {
+            flex: 1;
+            text-align: left;
+            opacity: 1; transition: opacity 0.3s;
+        }
+
+        .gp-name {
+            font-size: 1.2rem; font-weight: bold; color: #333; margin: 0;
+        }
+        
+        .gp-details {
+            max-height: 0; overflow: hidden; opacity: 0;
+            transition: all 0.5s;
+        }
+
+        /* 企画書ボタン */
+        .plan-link {
+            display: inline-block;
+            margin-top: 5px; padding: 5px 15px;
+            background: #2e7d32; color: #fff; text-decoration: none;
+            font-size: 0.8rem; border-radius: 4px;
+        }
+        .plan-link:hover { background: #1b5e20; }
+
+        /* コメント */
+        .gp-comment {
+            font-size: 0.85rem; color: #555; margin-top: 5px;
+            background: #f9f9f9; padding: 8px; border-radius: 4px;
+            border-left: 3px solid #ccc;
+        }
+
+        /* --- アクティブ（拡大）時のスタイル --- */
+        .gp-card.active {
+            flex: 3; /* 大きく広がる */
+            border: 2px solid var(--c-works);
+            background: #f0fff0;
+        }
+        .gp-card.active .gp-photo {
+            width: 120px; height: 120px; /* 写真も拡大 */
+            border-color: var(--c-works);
+        }
+        .gp-card.active .gp-details {
+            max-height: 200px; opacity: 1; margin-top: 10px; /* 詳細を表示 */
+        }
+
+        /* --- 非アクティブ（縮小）時のスタイル --- */
+        .gp-card.inactive {
+            flex: 0.6; /* 小さくなる */
+            opacity: 0.7;
+            background: #f5f5f5;
+        }
+        .gp-card.inactive .gp-photo {
+            width: 40px; height: 40px; margin-right: 10px; /* 写真縮小 */
+        }
+        .gp-card.inactive .gp-details {
+            display: none; /* 詳細は消す */
+        }
+        .gp-card.inactive .gp-name {
+            font-size: 1rem; /* 名前だけ残す */
+        }
+        .gp-card.inactive .rank-badge {
+            font-size: 0.7rem; padding: 2px 8px; /* バッジも控えめに */
+        }
+
+        /* その他の配置調整 */
+        .pos-idx-title { width: 80%; margin-top: -150px; }
+        .pos-idx-btn-1 { margin-top: 0px; margin-left: -150px; width: 180px; }
+        .pos-idx-btn-2 { margin-top: 0px; margin-left: 150px; width: 180px; }
+        .pos-idx-btn-3 { margin-top: 150px; margin-left: -150px; width: 180px; }
+        .pos-idx-btn-4 { margin-top: 150px; margin-left: 150px; width: 180px; }
+        
+        .pos-photo-main { width: 320px; margin-top: -80px; z-index: 10; }
+        .pos-photo-sub1 { width: 160px; margin-top: 150px; margin-left: -100px; z-index: 5; }
+        .pos-photo-sub2 { width: 160px; margin-top: 150px; margin-left: 100px; z-index: 5; }
+
+        .pos-video-main { width: 350px; margin-top: 0; }
+        .pos-kentei-box { width: 300px; margin-top: 0; }
+        .pos-kentei-deco { font-size: 4rem; margin-top: -180px; margin-left: 150px; }
+
+        /* ナビゲーション */
+        .side-nav {
+            position: absolute; top: 30px; right: -140px;
+            display: flex; flex-direction: column; gap: 8px;
+            transform: translateZ(10px); z-index: 200;
+            opacity: 0; pointer-events: none; transition: opacity 0.5s;
+        }
+        .book-open .side-nav { opacity: 1; pointer-events: auto; }
+        .nav-tab {
+            width: 150px; height: 45px;
+            border: none; cursor: pointer; font-weight: bold; font-size: 0.9rem;
+            text-align: left; padding-left: 20px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 3px 3px 6px rgba(0,0,0,0.2); transition: transform 0.2s;
+            display: flex; align-items: center;
+        }
+        .nav-tab:hover { transform: translateX(10px); }
+        .t-index { background: var(--c-index); }
+        .t-photo { background: var(--c-photo); }
+        .t-works { background: var(--c-works); }
+        .t-video { background: var(--c-video); color: #fff; }
+        .t-kentei{ background: var(--c-kentei); border-right: 6px solid #b8860b; }
+        .t-close { background: #e0e0e0; color: #333; }
+
+        @keyframes sakura-fall { 0% { transform: translateY(-10%) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+        .petal { position: absolute; width: 16px; height: 16px; background: #ffc0cb; border-radius: 150% 0 150% 0; animation: sakura-fall linear infinite; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <h1 class="top-left-title">日本電子専門学校18期生公式HP</h1>
+    <img src="tree_left.png" class="tree tree-left" alt="">
+    <img src="tree_right.png" class="tree tree-right" alt="">
+    <div class="sakura-container" id="sakura"></div>
+
+    <div class="scene" id="scene">
+        <div class="book" id="book">
+            
+            <div class="back-cover"></div>
+
+            <div class="pages-container">
+
+                <div class="page-layer active" id="page-index" style="background: var(--c-index);">
+                    <div class="popup-object pos-idx-title delay-3">
+                        <h2 style="font-size: 3.5rem; color: #333; text-align: center; text-shadow: 3px 3px 0 #fff; margin:0;">INDEX</h2>
+                    </div>
+                    <div class="popup-object pos-idx-btn-1 delay-1" onclick="changePage('page-photo')">
+                        <div class="card" style="background: var(--c-photo); cursor:pointer;">
+                            <span style="font-size:2.5rem;">📸</span><br><b>アルバム</b>
+                        </div>
+                    </div>
+                    <div class="popup-object pos-idx-btn-2 delay-2" onclick="changePage('page-works')">
+                        <div class="card" style="background: var(--c-works); cursor:pointer;">
+                            <span style="font-size:2.5rem;">🏆</span><br><b>GP作品</b>
+                        </div>
+                    </div>
+                    <div class="popup-object pos-idx-btn-3 delay-3" onclick="changePage('page-video')">
+                        <div class="card" style="background: var(--c-video); color:#fff; cursor:pointer;">
+                            <span style="font-size:2.5rem;">🎥</span><br><b>動画集</b>
+                        </div>
+                    </div>
+                    <div class="popup-object pos-idx-btn-4 delay-4" onclick="changePage('page-kentei')">
+                        <div class="card" style="background: var(--c-kentei); cursor:pointer;">
+                            <span style="font-size:2.5rem;">📝</span><br><b>検定</b>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page-layer" id="page-photo" style="background: var(--c-photo);">
+                    <div class="popup-object pos-photo-main delay-2">
+                        <div class="card">
+                            <img src="photo1.jpg" alt="Main Photo" style="min-height:150px; background:#ddd;">
+                            <h3>Class Memory</h3>
+                        </div>
+                    </div>
+                    <div class="popup-object pos-photo-sub1 delay-3">
+                        <div class="card"><img src="photo2.jpg" alt="" style="min-height:80px; background:#ddd;"></div>
+                    </div>
+                    <div class="popup-object pos-photo-sub2 delay-4">
+                        <div class="card"><img src="photo3.jpg" alt="" style="min-height:80px; background:#ddd;"></div>
+                    </div>
+                </div>
+
+                <div class="page-layer" id="page-works" style="background: var(--c-works);">
+                    <div class="popup-object gp-board-container delay-2" id="gp-container">
+                        
+                        <div class="gp-card" onclick="expandGp(this)">
+                            <div class="rank-badge">第1回 優勝</div>
+                            <div class="gp-inner">
+                                <img src="winner1.png" class="gp-photo" alt="Winner1" style="background:#ccc;">
+                                <div class="gp-info">
+                                    <h3 class="gp-name">優勝者 小林　美空さん</h3>
+                                    <div class="gp-details">
+                                        <p class="gp-comment">「18期初代王者」</p>
+                                        <a href="plan1.pdf" target="_blank" class="plan-link">📄 企画書を見る</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gp-card" onclick="expandGp(this)">
+                            <div class="rank-badge rank-2">第2回 優勝</div>
+                            <div class="gp-inner">
+                                <img src="winner2.PNG" class="gp-photo" alt="Winner2" style="background:#ccc;">
+                                <div class="gp-info">
+                                    <h3 class="gp-name">優勝者 眞木　暖翔さん</h3>
+                                    <div class="gp-details">
+                                        <p class="gp-comment">「教祖爆誕！！！！」</p>
+                                        <a href="plan2.pdf" target="_blank" class="plan-link">📄 企画書を見る</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gp-card" onclick="expandGp(this)">
+                            <div class="rank-badge rank-3">第3回 優勝</div>
+                            <div class="gp-inner">
+                                <img src="winner3.jpg" class="gp-photo" alt="Winner3" style="background:#ccc;">
+                                <div class="gp-info">
+                                    <h3 class="gp-name">優勝者 辻本　優紀奈さん</h3>
+                                    <div class="gp-details">
+                                        <p class="gp-comment">「汚名返上　Ms.2位」</p>
+                                        <a href="plan3.pdf" target="_blank" class="plan-link">📄 企画書を見る</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="page-layer" id="page-video" style="background: var(--c-video);">
+                    <div class="popup-object pos-video-main delay-2">
+                        <div class="card" style="background:#222; color:#fff;">
+                            <h3>卒業制作発表会</h3>
+                            <div style="font-size:4rem; margin:20px 0;">▶️</div>
+                            <p style="color:#aaa;">Click to Play</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page-layer" id="page-kentei" style="background: var(--c-kentei);">
+                    <div class="popup-object pos-kentei-box delay-2">
+                        <div class="card">
+                            <h3 style="font-size:1.5rem;">24CR検定</h3>
+                            <p>クラスの知識を試そう！</p>
+                            <button onclick="openGameWindow()" style="margin-top:15px; padding:10px 30px; font-size:1.2rem; cursor:pointer; background:#333; color:#fff; border:none; border-radius:5px;">START</button>
+                        </div>
+                    </div>
+                    <div class="popup-object pos-kentei-deco delay-1">👑</div>
+                </div>
+
+            </div>
+
+            <div class="front-cover" id="front-cover" onclick="openBook()">
+                <div class="front-cover-outer">
+                    <div class="cover-plate">
+                        <div class="cover-logo-container">
+                            <img src="logo.png" alt="Logo">
+                        </div>
+                        <h2 class="cover-title">18期生 卒業アルバム</h2>
+                        <div class="cover-names">
+                            秋田谷 奬太 / 岩木 知香 / 小泉魁<br>
+                            辻本優妃奈 / 三浦結真 / 倉魁人
+                        </div>
+                        <button class="start-btn">Click to Open</button>
+                    </div>
+                </div>
+                <div class="front-cover-inner">
+                    <div class="left-page-content" id="left-content">
+                        <h2 style="font-size:2.5rem; color:#555;">INDEX</h2>
+                        <p style="font-size:1.2rem;">右側のタブから<br>ページを選んでください</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="side-nav">
+                <button class="nav-tab t-index" onclick="changePage('page-index')">目次</button>
+                <button class="nav-tab t-photo" onclick="changePage('page-photo')">アルバム</button>
+                <button class="nav-tab t-works" onclick="changePage('page-works')">GP作品集</button>
+                <button class="nav-tab t-video" onclick="changePage('page-video')">動画集</button>
+                <button class="nav-tab t-kentei" onclick="changePage('page-kentei')">24CR検定</button>
+                <button class="nav-tab t-close" onclick="closeBook()">表紙を閉じる</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        let isBookOpen = false;
+        let currentPageId = 'page-index';
+
+        function openBook() {
+            if (isBookOpen) return;
+            isBookOpen = true;
+            const cover = document.getElementById('front-cover');
+            const book = document.getElementById('book');
+            const scene = document.getElementById('scene');
+            cover.style.transform = "rotateY(-180deg)";
+            scene.style.transform = "rotateX(25deg) translateY(30px) translateX(215px)";
+            setTimeout(() => {
+                book.classList.add('book-open');
+                updatePopupVisibility(currentPageId);
+            }, 600);
+        }
+
+        function closeBook() {
+            if (!isBookOpen) return;
+            isBookOpen = false;
+            const cover = document.getElementById('front-cover');
+            const book = document.getElementById('book');
+            const scene = document.getElementById('scene');
+            document.querySelectorAll('.popup-object').forEach(el => el.classList.remove('show'));
+            book.classList.remove('book-open');
+            setTimeout(() => {
+                cover.style.transform = "rotateY(0deg)";
+                scene.style.transform = "rotateX(25deg) translateY(30px) translateX(0px)";
+            }, 300);
+        }
+
+        function changePage(targetId) {
+            if (targetId === currentPageId) return;
+            const currentObjects = document.getElementById(currentPageId).querySelectorAll('.popup-object');
+            currentObjects.forEach(el => el.classList.remove('show'));
+            const leftContent = document.getElementById('left-content');
+            leftContent.style.opacity = 0;
+            
+            // GPページから離れるときにカードの状態をリセット
+            if(currentPageId === 'page-works') resetGpCards();
+
+            setTimeout(() => {
+                document.querySelectorAll('.page-layer').forEach(p => p.classList.remove('active'));
+                document.getElementById(targetId).classList.add('active');
+                currentPageId = targetId;
+                updateLeftContent(targetId);
+                leftContent.style.opacity = 1;
+                setTimeout(() => {
+                    updatePopupVisibility(targetId);
+                }, 100);
+            }, 600);
+        }
+
+        function updatePopupVisibility(pageId) {
+            const container = document.getElementById(pageId);
+            const objects = container.querySelectorAll('.popup-object');
+            objects.forEach(obj => {
+                obj.classList.add('show');
+            });
+        }
+
+        function updateLeftContent(pageId) {
+            const container = document.getElementById('left-content');
+            let html = "";
+            switch(pageId) {
+                case 'page-index': html = `<h2>INDEX</h2><p>見たいページを<br>選んでください</p>`; break;
+                case 'page-photo': html = `<h2>ALBUM</h2><p>思い出の写真たち</p>`; break;
+                case 'page-works': html = `<h2>WORKS</h2><p>GP優勝作品の紹介</p>`; break;
+                case 'page-video': html = `<h2>VIDEO</h2><p>動画コンテンツ</p>`; break;
+                case 'page-kentei': html = `<h2>QUIZ</h2><p>24CR検定に挑戦！</p>`; break;
+            }
+            container.innerHTML = html;
+        }
+
+        function openGameWindow() {
+            const w = 960; const h = 600;
+            const left = (screen.width - w) / 2;
+            const top = (screen.height - h) / 2;
+            window.open("kentei_folder/index.html", "Game", `width=${w},height=${h},top=${top},left=${left},resizable=yes`);
+        }
+
+        /* --- GPカードのアクション --- */
+        function expandGp(clickedCard) {
+            const container = document.getElementById('gp-container');
+            const allCards = container.querySelectorAll('.gp-card');
+            
+            // 既に開いているものをクリックしたら元に戻す（トグル動作）
+            if (clickedCard.classList.contains('active')) {
+                resetGpCards();
+                return;
+            }
+
+            allCards.forEach(card => {
+                if (card === clickedCard) {
+                    card.classList.add('active');
+                    card.classList.remove('inactive');
+                } else {
+                    card.classList.remove('active');
+                    card.classList.add('inactive');
+                }
+            });
+        }
+
+        function resetGpCards() {
+            const cards = document.querySelectorAll('.gp-card');
+            cards.forEach(card => {
+                card.classList.remove('active');
+                card.classList.remove('inactive');
+            });
+        }
+
+        function createPetal() {
+            const sakura = document.getElementById('sakura');
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            const size = Math.random() * 12 + 10 + 'px';
+            petal.style.width = size; petal.style.height = size;
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = Math.random() * 3 + 6 + 's';
+            sakura.appendChild(petal);
+            setTimeout(() => petal.remove(), 9000);
+        }
+        setInterval(createPetal, 400);
+    </script>
+</body>
+</html>

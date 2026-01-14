@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24CR検定</title>
+    <style>
+        :root {
+            --panel-color: #f0f0f0;
+            --accent-color: #333;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ccc;
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        /* 起動前の細いパネル状態 */
+        #quiz-container {
+            width: 60px; /* 最初は細い */
+            height: 400px;
+            background-color: var(--panel-color);
+            border: 2px solid var(--accent-color);
+            transition: width 0.5s ease-out; /* アニメーション設定 */
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 起動後の広がった状態 */
+        #quiz-container.opened {
+            width: 500px;
+            cursor: default;
+        }
+
+        #content {
+            display: none; /* 最初は隠しておく */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        #content.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        .choices-container {
+            display: grid;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        /* 確認用ダイアログ */
+        #confirm-modal {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 2px solid black;
+            padding: 20px;
+            z-index: 10;
+            width: 80%;
+            text-align: center;
+        }
+
+        .result-item {
+            font-size: 20px;
+            margin: 5px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<div id="quiz-container" onclick="openPanel()">
+    <div id="title-vertical" style="writing-mode: vertical-rl;">24CR検定（クリックで開始）</div>
+    
+    <div id="content">
+        <h2 id="question-text">問 この時この人はなんて返した?</h2>
+        <div class="choices-container" id="choices">
+            </div>
+    </div>
+
+    <div id="confirm-modal">
+        <p id="confirm-text"></p>
+        <button onclick="confirmAnswer(true)">はい</button>
+        <button onclick="confirmAnswer(false)">いいえ</button>
+    </div>
+</div>
+
+<script>
+    // 問題データ（ここで編集可能）
+    const quizData = [
+        { q: "問：この時この人はなんて返した？", c: ["お疲れ様です", "ありがとうございます", "承知いたしました", "よろしくお願いします"], a: 0 },
+        { q: "問：次の返答として正しいのは？", c: ["A：承知しました", "B：了解です", "C：わかりました", "D：OKです"], a: 1 }
+    ];
+
+    let currentIdx = 0;
+    let selectedIdx = null;
+    let results = [];
+
+    // パネルを開く
+    function openPanel() {
+        const container = document.getElementById('quiz-container');
+        if (!container.classList.contains('opened')) {
+            container.classList.add('opened');
+            document.getElementById('title-vertical').style.display = 'none';
+            setTimeout(() => {
+                document.getElementById('content').classList.add('visible');
+                showQuestion();
+            }, 500);
+        }
+    }
+
+    // 問題を表示
+    function showQuestion() {
+        if (currentIdx < quizData.length) {
+            const data = quizData[currentIdx];
+            document.getElementById('question-text').innerText = data.q;
+            const choicesDiv = document.getElementById('choices');
+            choicesDiv.innerHTML = '';
+            
+            data.c.forEach((choice, i) => {
+                const btn = document.createElement('button');
+                const labels = ['A', 'B', 'C', 'D'];
+                btn.innerText = `${labels[i]} ${choice}`;
+                btn.onclick = () => askConfirm(i);
+                choicesDiv.appendChild(btn);
+            });
+        } else {
+            showFinalResults();
+        }
+    }
+
+    // 確認ダイアログを表示
+    function askConfirm(idx) {
+        selectedIdx = idx;
+        const labels = ['A', 'B', 'C', 'D'];
+        document.getElementById('confirm-text').innerText = `${labels[idx]} で間違いないですか？`;
+        document.getElementById('confirm-modal').style.display = 'block';
+    }
+
+    // 回答を確定
+    function confirmAnswer(isYes) {
+        document.getElementById('confirm-modal').style.display = 'none';
+        if (isYes) {
+            results.push(selectedIdx === quizData[currentIdx].a);
+            currentIdx++;
+            showQuestion();
+        }
+    }
+
+    // 最後に結果を表示
+    function showFinalResults() {
+        const content = document.getElementById('content');
+        let html = '<h2>検定結果</h2>';
+        results.forEach((res, i) => {
+            html += `<div class="result-item">第${i+1}問：${res ? '○' : '×'}</div>`;
+        });
+        content.innerHTML = html;
+    }
+</script>
+
+</body>
+</html>
