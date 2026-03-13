@@ -196,7 +196,7 @@
         .pos-idx-btn-3 { margin-top: 150px; margin-left: -150px; width: 180px; }
         .pos-idx-btn-4 { margin-top: 150px; margin-left: 150px; width: 180px; }
         
-        /* ▼【写真ページ専用レイアウト】31枚（9-13-9）対応版 ▼ */
+        /* 写真ページ専用レイアウト */
         .pos-photo-board {
             width: 760px; margin-top: -15px; 
         }
@@ -210,26 +210,22 @@
             border-bottom: 2px solid #eee; padding-bottom: 10px;
         }
 
-        /* 横1列（上段と下段の9個用） */
         .photo-row {
             display: flex; justify-content: center; gap: 12px; margin-bottom: 15px;
         }
         .photo-row:last-child { margin-bottom: 0; }
         
-        /* 中段（左右ブロック＋中央大写真） */
         .photo-middle-section {
             display: flex; justify-content: center; gap: 12px; margin-bottom: 15px;
         }
         
-        /* 左右ブロック（縦2段） */
         .photo-side-block {
             display: flex; flex-direction: column; gap: 12px;
         }
         .photo-side-block .photo-row {
-            margin-bottom: 0; /* gapで間隔をあけるためmarginはリセット */
+            margin-bottom: 0;
         }
 
-        /* 中央の大きな写真枠のサイズ指定（通常枠3個分の幅＋隙間・通常枠2個分の高さ＋隙間） */
         .photo-frame-large {
             width: 219px !important; 
             height: 182px !important;
@@ -238,7 +234,6 @@
             overflow: hidden; box-sizing: border-box;
         }
         
-        /* 各写真の枠組み（標準サイズ） */
         .photo-frame {
             width: 65px; height: 85px; background: #e0e0e0;
             border: 2px solid #ccc; border-radius: 4px; position: relative;
@@ -249,18 +244,16 @@
             width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1;
         }
         
-        /* ▼ クリック可能な写真のホバー効果 ▼ */
         .photo-frame.clickable, .photo-frame-large.clickable {
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .photo-frame.clickable:hover {
-            transform: scale(1.15); /* マウスを乗せると少し拡大 */
+            transform: scale(1.15);
             box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-            z-index: 10; /* 拡大した時に他の写真より手前に表示 */
-            border-color: #ffd700; /* 枠の色を強調 */
+            z-index: 10;
+            border-color: #ffd700;
         }
-        /* 中央の大写真はホバー時の拡大率を控えめに */
         .photo-frame-large.clickable:hover {
             transform: scale(1.02);
             box-shadow: 0 5px 15px rgba(0,0,0,0.4);
@@ -268,7 +261,6 @@
             border-color: #ffd700;
         }
         
-        /* 番号の表示（左上） */
         .photo-num {
             position: absolute; top: 2px; left: 2px;
             background: rgba(255,255,255,0.8); color: #333; font-size: 0.75rem;
@@ -280,7 +272,6 @@
         .pos-kentei-box { width: 300px; margin-top: 0; }
         .pos-kentei-deco { font-size: 4rem; margin-top: -180px; margin-left: 150px; }
 
-        /* ナビゲーション */
         .side-nav {
             position: absolute; top: 30px; right: -140px;
             display: flex; flex-direction: column; gap: 8px;
@@ -354,62 +345,61 @@
                             <h3 class="photo-board-title">Class Memory</h3>
                             
                             <div class="photo-row">
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">01</div><img src="01_秋田谷.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">02</div><img src="02_新井.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">03</div><img src="03_イエン.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">04</div><img src="04_岩木.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">05</div><img src="05_ウ.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">06</div><img src="06_大川.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">07</div><img src="07_大久保.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">10</div><img src="10_岡本.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">11</div><img src="11_カ.jpg" alt=""></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">01</div><img src="01_秋田谷.jpg" alt="" loading="lazy"></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">02</div><img src="02_新井.jpg" alt="" loading="lazy"></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">03</div><img src="03_イエン.jpg" alt="" loading="lazy"></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">04</div><img src="04_岩木.jpg" alt="" loading="lazy"></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">05</div><img src="05_ウ.jpg" alt="" loading="lazy"></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">06</div><img src="06_大川.jpg" alt="" loading="lazy"></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">07</div><img src="07_大久保.jpg" alt="" loading="lazy"></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">10</div><img src="10_岡本.jpg" alt="" loading="lazy"></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">11</div><img src="11_カ.jpg" alt="" loading="lazy"></div>
                             </div>
 
                             <div class="photo-middle-section">
-                                
                                 <div class="photo-side-block">
                                     <div class="photo-row">
-                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">13</div><img src="13_金.jpg" alt=""></div>
-                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">14</div><img src="14_久保木.jpg" alt=""></div>
-                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">15</div><img src="15_倉.jpg" alt=""></div>
+                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">13</div><img src="13_金.jpg" alt="" loading="lazy"></div>
+                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">14</div><img src="14_久保木.jpg" alt="" loading="lazy"></div>
+                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">15</div><img src="15_倉.jpg" alt="" loading="lazy"></div>
                                     </div>
                                     <div class="photo-row">
-                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">16</div><img src="16_小泉.jpg" alt=""></div>
-                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">17</div><img src="17_小林.jpg" alt=""></div>
-                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">19</div><img src="19_サイ.jpg" alt=""></div>
+                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">16</div><img src="16_小泉.jpg" alt="" loading="lazy"></div>
+                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">17</div><img src="17_小林.jpg" alt="" loading="lazy"></div>
+                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">19</div><img src="19_サイ.jpg" alt="" loading="lazy"></div>
                                     </div>
                                 </div>
 
                                 <div class="photo-frame-large clickable" onclick="toggleCenterPhoto()">
                                     <div class="photo-num">00</div>
-                                    <img id="center-img" src="全体写真_1.jpg" alt="Center Photo">
+                                    <img id="center-img" src="全体写真_1.jpg" alt="Center Photo" loading="lazy">
                                 </div>
 
                                 <div class="photo-side-block">
                                     <div class="photo-row">
-                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">20</div><img src="20_志賀.jpg" alt=""></div>
-                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">22</div><img src="22_竹内.jpg" alt=""></div>
-                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">23</div><img src="23_田村.jpg" alt=""></div>
+                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">20</div><img src="20_志賀.jpg" alt="" loading="lazy"></div>
+                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">22</div><img src="22_竹内.jpg" alt="" loading="lazy"></div>
+                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">23</div><img src="23_田村.jpg" alt="" loading="lazy"></div>
                                     </div>
                                     <div class="photo-row">
-                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">24</div><img src="24_タン.jpg" alt=""></div>
-                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">26</div><img src="26_辻本.jpg" alt=""></div>
-                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">28</div><img src="28_永田.jpg" alt=""></div>
+                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">24</div><img src="24_タン.jpg" alt="" loading="lazy"></div>
+                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">26</div><img src="26_辻本.jpg" alt="" loading="lazy"></div>
+                                        <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">28</div><img src="28_永田.jpg" alt="" loading="lazy"></div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="photo-row">
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">29</div><img src="29_中村.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">32</div><img src="32_平坂.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">33</div><img src="33_福島.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">34</div><img src="34_古牧.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">35</div><img src="35_マー.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">36</div><img src="36_眞木.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('https://uma67414.wixsite.com/website-1)"><div class="photo-num">37</div><img src="37_三浦.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">38</div><img src="38_森田.jpg" alt=""></div>
-                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">41</div><img src="41_志村.jpg" alt=""></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">29</div><img src="29_中村.jpg" alt="" loading="lazy"></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">32</div><img src="32_平坂.jpg" alt="" loading="lazy"></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">33</div><img src="33_福島.jpg" alt="" loading="lazy"></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">34</div><img src="34_古牧.jpg" alt="" loading="lazy"></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">35</div><img src="35_マー.jpg" alt="" loading="lazy"></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">36</div><img src="36_眞木.jpg" alt="" loading="lazy"></div>
+                                
+                                <div class="photo-frame clickable" onclick="window.open('https://uma67414.wixsite.com/website-1', '_blank')"><div class="photo-num">37</div><img src="37_三浦.jpg" alt="" loading="lazy"></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">38</div><img src="38_森田.jpg" alt="" loading="lazy"></div>
+                                <div class="photo-frame clickable" onclick="window.open('リンク先のURL', '_blank')"><div class="photo-num">41</div><img src="41_志村.jpg" alt="" loading="lazy"></div>
                             </div>
 
                         </div>
@@ -422,7 +412,7 @@
                         <div class="gp-card" onclick="expandGp(this)">
                             <div class="rank-badge">第1回 優勝</div>
                             <div class="gp-inner">
-                                <img src="winner1.png" class="gp-photo" alt="Winner1" style="background:#ccc;">
+                                <img src="winner1.png" class="gp-photo" alt="Winner1" style="background:#ccc;" loading="lazy">
                                 <div class="gp-info">
                                     <h3 class="gp-name">優勝者 小林さん</h3>
                                     <div class="gp-details">
@@ -436,7 +426,7 @@
                         <div class="gp-card" onclick="expandGp(this)">
                             <div class="rank-badge rank-2">第2回 優勝</div>
                             <div class="gp-inner">
-                                <img src="winner2.PNG" class="gp-photo" alt="Winner2" style="background:#ccc;">
+                                <img src="winner2.PNG" class="gp-photo" alt="Winner2" style="background:#ccc;" loading="lazy">
                                 <div class="gp-info">
                                     <h3 class="gp-name">優勝者 眞木さん</h3>
                                     <div class="gp-details">
@@ -450,7 +440,7 @@
                         <div class="gp-card" onclick="expandGp(this)">
                             <div class="rank-badge rank-3">第3回 優勝</div>
                             <div class="gp-inner">
-                                <img src="winner3.jpg" class="gp-photo" alt="Winner3" style="background:#ccc;">
+                                <img src="winner3.jpg" class="gp-photo" alt="Winner3" style="background:#ccc;" loading="lazy">
                                 <div class="gp-info">
                                     <h3 class="gp-name">優勝者 辻本さん</h3>
                                     <div class="gp-details">
@@ -559,7 +549,6 @@
             const leftContent = document.getElementById('left-content');
             leftContent.style.opacity = 0;
             
-            // GPページから離れるときにカードの状態をリセット
             if(currentPageId === 'page-works') resetGpCards();
 
             setTimeout(() => {
@@ -597,41 +586,30 @@
 
         function openGameWindow() {
             const url = "https://play.unity.com/api/v1/games/game/f7d43d80-f939-4b92-9022-1f8008012e76/build/latest/frame";
-            
             const w = 960; const h = 600;
             const left = (screen.width - w) / 2;
             const top = (screen.height - h) / 2;
             window.open(url, "Game", `width=${w},height=${h},top=${top},left=${left},resizable=yes`);
         }
 
-        /* --- ▼【追加】中央の写真を切り替えるスクリプト ▼ --- */
         function toggleCenterPhoto() {
             const img = document.getElementById('center-img');
-            
-            // 切り替える2つの画像のファイル名をフルで指定
             const src1 = "全体写真_1.jpg";
-            const src2 = "全体写真_2.jpg";  // 切り替え先の画像ファイルをご用意ください
-            
-            // 現在のファイル名がsrc1ならsrc2へ、そうでなければsrc1へ戻す
+            const src2 = "全体写真_2.jpg";  
             if (img.getAttribute('src') === src1) {
                 img.setAttribute('src', src2);
             } else {
                 img.setAttribute('src', src1);
             }
         }
-        /* ---------------------------------------------------- */
 
-        /* --- GPカードのアクション --- */
         function expandGp(clickedCard) {
             const container = document.getElementById('gp-container');
             const allCards = container.querySelectorAll('.gp-card');
-            
-            // 既に開いているものをクリックしたら元に戻す（トグル動作）
             if (clickedCard.classList.contains('active')) {
                 resetGpCards();
                 return;
             }
-
             allCards.forEach(card => {
                 if (card === clickedCard) {
                     card.classList.add('active');
@@ -662,7 +640,9 @@
             sakura.appendChild(petal);
             setTimeout(() => petal.remove(), 9000);
         }
-        setInterval(createPetal, 400);
+        
+        // ▼ アニメーションの生成頻度を下げて軽くしました（400ms → 900ms） ▼
+        setInterval(createPetal, 900);
     </script>
 </body>
 </html>
