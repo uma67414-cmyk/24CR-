@@ -293,9 +293,43 @@
         .pos-idx-btn-3 { margin-top: 150px; margin-left: -150px; width: 180px; }
         .pos-idx-btn-4 { margin-top: 150px; margin-left: 150px; width: 180px; }
         
-        .pos-photo-main { width: 320px; margin-top: -80px; z-index: 10; }
-        .pos-photo-sub1 { width: 160px; margin-top: 150px; margin-left: -100px; z-index: 5; }
-        .pos-photo-sub2 { width: 160px; margin-top: 150px; margin-left: 100px; z-index: 5; }
+      /* 1: アルバム(写真)ページ専用レイアウト（ここから追加） */
+        .pos-photo-board {
+            width: 760px; /* ボードを本全体に広げる */
+            margin-top: -15px; /* 高さの微調整 */
+        }
+        .photo-board-card {
+            background: #fff; padding: 20px 10px; border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15); text-align: center;
+            backface-visibility: hidden; box-sizing: border-box;
+        }
+        .photo-board-title {
+            margin: 0 0 15px 0; color: #333; font-size: 1.5rem;
+            border-bottom: 2px solid #eee; padding-bottom: 10px;
+        }
+        .photo-row {
+            display: flex; justify-content: center; gap: 12px; margin-bottom: 15px;
+        }
+        .photo-row:last-child { margin-bottom: 0; }
+        
+        /* 2: 各写真の枠組み */
+        .photo-frame {
+            width: 65px; height: 85px; background: #e0e0e0;
+            border: 2px solid #ccc; border-radius: 4px; position: relative;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        .photo-frame img {
+            width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1;
+        }
+        
+        /* 3: 番号の表示（左上） */
+        .photo-num {
+            position: absolute; top: 2px; left: 2px;
+            background: rgba(255,255,255,0.8); color: #333; font-size: 0.75rem;
+            font-weight: bold; padding: 2px 5px; border-radius: 2px;
+            z-index: 2; pointer-events: none;
+        }
+        /* （ここまで追加） */
 
         .pos-video-main { width: 350px; margin-top: 0; }
         .pos-kentei-box { width: 300px; margin-top: 0; }
@@ -343,21 +377,50 @@
 
             <div class="pages-container">
 
-                <div class="page-layer active" id="page-index" style="background: var(--c-index);">
-                    <div class="popup-object pos-idx-title delay-3">
-                        <h2 style="font-size: 3.5rem; color: #333; text-align: center; text-shadow: 3px 3px 0 #fff; margin:0;">INDEX</h2>
-                    </div>
-                    <div class="popup-object pos-idx-btn-1 delay-1" onclick="changePage('page-photo')">
-                        <div class="card" style="background: var(--c-photo); cursor:pointer;">
-                            <span style="font-size:2.5rem;">📸</span><br><b>アルバム</b>
+                <div class="page-layer" id="page-photo" style="background: var(--c-photo);">
+                    <div class="popup-object pos-photo-board delay-2">
+                        <div class="photo-board-card">
+                            <h3 class="photo-board-title">Class Memory</h3>
+                            
+                            <div class="photo-row">
+                                <div class="photo-frame"><div class="photo-num">1</div><img src="p1.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">2</div><img src="p2.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">3</div><img src="p3.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">4</div><img src="p4.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">5</div><img src="p5.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">6</div><img src="p6.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">7</div><img src="p7.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">8</div><img src="p8.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">9</div><img src="p9.jpg" alt=""></div>
+                            </div>
+
+                            <div class="photo-row">
+                                <div class="photo-frame"><div class="photo-num">10</div><img src="p10.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">11</div><img src="p11.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">12</div><img src="p12.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">13</div><img src="p13.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">14</div><img src="p14.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">15</div><img src="p15.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">16</div><img src="p16.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">17</div><img src="p17.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">18</div><img src="p18.jpg" alt=""></div>
+                            </div>
+
+                            <div class="photo-row">
+                                <div class="photo-frame"><div class="photo-num">19</div><img src="p19.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">20</div><img src="p20.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">21</div><img src="p21.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">22</div><img src="p22.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">23</div><img src="p23.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">24</div><img src="p24.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">25</div><img src="p25.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">26</div><img src="p26.jpg" alt=""></div>
+                                <div class="photo-frame"><div class="photo-num">27</div><img src="p27.jpg" alt=""></div>
+                            </div>
+
                         </div>
                     </div>
-                    <div class="popup-object pos-idx-btn-2 delay-2" onclick="changePage('page-works')">
-                        <div class="card" style="background: var(--c-works); cursor:pointer;">
-                            <span style="font-size:2.5rem;">🏆</span><br><b>GP作品</b>
-                        </div>
-                    </div>
-                    <div class="popup-object pos-idx-btn-3 delay-3" onclick="changePage('page-video')">
+                </div>                    <div class="popup-object pos-idx-btn-3 delay-3" onclick="changePage('page-video')">
                         <div class="card" style="background: var(--c-video); color:#fff; cursor:pointer;">
                             <span style="font-size:2.5rem;">🎥</span><br><b>動画集</b>
                         </div>
@@ -617,6 +680,7 @@
     </script>
 </body>
 </html>
+
 
 
 
