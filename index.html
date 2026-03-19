@@ -655,9 +655,9 @@
             container.innerHTML = html;
         }
 
-        /* ▼【変更点】ここだけご指定のURLに差し替えました ▼ */
+        /* ▼【変更点】新しく取得したURLを以下の " " の中に入れてください ▼ */
         function openGameWindow() {
-            const url = "https://play.unity.com/en/games/d0c28f93-d545-432c-81e3-8a8c309e82ea/webgl-builds";
+            const url = "https://play.unity.com/api/v1/games/game/d0c28f93-d545-432c-81e3-8a8c309e82ea/build/latest/frame";
             const w = 960; const h = 600;
             const left = (screen.width - w) / 2;
             const top = (screen.height - h) / 2;
