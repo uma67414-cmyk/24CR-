@@ -189,7 +189,7 @@
         .gp-card.inactive .gp-name { font-size: 1rem; }
         .gp-card.inactive .rank-badge { font-size: 0.7rem; padding: 2px 8px; }
 
-        /* ▼【追加】動画ページ専用CSS ▼ */
+        /* ▼ 動画ページ専用CSS ▼ */
         .video-board-container { width: 500px; height: 500px; display: flex; flex-direction: column; gap: 10px; margin-top: -20px; }
         .video-card { flex: 1; background: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #ddd; overflow: hidden; cursor: pointer; transition: flex 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s; display: flex; align-items: center; padding: 10px; position: relative; }
         .video-badge { position: absolute; top: 0; left: 0; background: #e53935; color: #fff; font-weight: bold; padding: 3px 12px; font-size: 0.8rem; border-radius: 0 0 10px 0; z-index: 5; }
@@ -208,7 +208,6 @@
         .video-card.inactive .video-details { display: none; }
         .video-card.inactive .video-title { font-size: 0.9rem; }
         .video-card.inactive .video-badge { display: none; }
-        /* ▲ 動画ページCSSここまで ▲ */
 
         /* その他の配置調整 */
         .pos-idx-title { width: 80%; margin-top: -150px; }
@@ -289,7 +288,6 @@
             z-index: 2; pointer-events: none;
         }
 
-        .pos-video-main { width: 350px; margin-top: 0; }
         .pos-kentei-box { width: 300px; margin-top: 0; }
         .pos-kentei-deco { font-size: 4rem; margin-top: -180px; margin-left: 150px; }
 
@@ -535,6 +533,7 @@
 
                     </div>
                 </div>
+
                 <div class="page-layer" id="page-kentei" style="background: var(--c-kentei);">
                     <div class="popup-object pos-kentei-box delay-2">
                         <div class="card">
@@ -621,7 +620,6 @@
             leftContent.style.opacity = 0;
             
             if(currentPageId === 'page-works') resetGpCards();
-            /* ▼ 追加：動画ページを離れる時にアコーディオンを閉じる ▼ */
             if(currentPageId === 'page-video') resetVideoCards();
 
             setTimeout(() => {
@@ -657,13 +655,15 @@
             container.innerHTML = html;
         }
 
+        /* ▼【変更点】ここだけご指定のURLに差し替えました ▼ */
         function openGameWindow() {
-            const url = "https://play.unity.com/api/v1/games/game/f7d43d80-f939-4b92-9022-1f8008012e76/build/latest/frame";
+            const url = "https://play.unity.com/en/games/d0c28f93-d545-432c-81e3-8a8c309e82ea/webgl-builds";
             const w = 960; const h = 600;
             const left = (screen.width - w) / 2;
             const top = (screen.height - h) / 2;
             window.open(url, "Game", `width=${w},height=${h},top=${top},left=${left},resizable=yes`);
         }
+        /* ▲ 変更点ここまで ▲ */
 
         function toggleCenterPhoto() {
             const img = document.getElementById('center-img');
@@ -702,7 +702,6 @@
             });
         }
 
-        /* --- ▼【追加】動画カードのアクション ▼ --- */
         function expandVideo(clickedCard) {
             const container = document.getElementById('video-container');
             const allCards = container.querySelectorAll('.video-card');
@@ -728,7 +727,6 @@
                 card.classList.remove('inactive');
             });
         }
-        /* ------------------------------------------- */
 
         function createPetal() {
             const sakura = document.getElementById('sakura');
