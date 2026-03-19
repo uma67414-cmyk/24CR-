@@ -189,6 +189,27 @@
         .gp-card.inactive .gp-name { font-size: 1rem; }
         .gp-card.inactive .rank-badge { font-size: 0.7rem; padding: 2px 8px; }
 
+        /* ▼【追加】動画ページ専用CSS ▼ */
+        .video-board-container { width: 500px; height: 500px; display: flex; flex-direction: column; gap: 10px; margin-top: -20px; }
+        .video-card { flex: 1; background: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #ddd; overflow: hidden; cursor: pointer; transition: flex 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s; display: flex; align-items: center; padding: 10px; position: relative; }
+        .video-badge { position: absolute; top: 0; left: 0; background: #e53935; color: #fff; font-weight: bold; padding: 3px 12px; font-size: 0.8rem; border-radius: 0 0 10px 0; z-index: 5; }
+        .video-inner { display: flex; width: 100%; height: 100%; align-items: center; }
+        .video-thumb { width: 80px; height: 60px; border-radius: 6px; object-fit: cover; border: 2px solid #eee; margin-right: 15px; margin-left: 5px; transition: all 0.5s; background: #333; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.5rem; }
+        .video-info { flex: 1; text-align: left; opacity: 1; transition: opacity 0.3s; }
+        .video-title { font-size: 1.1rem; font-weight: bold; color: #333; margin: 0; }
+        .video-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.5s; }
+        .play-link { display: inline-block; margin-top: 5px; padding: 5px 15px; background: #e53935; color: #fff; text-decoration: none; font-size: 0.8rem; border-radius: 4px; }
+        .play-link:hover { background: #c62828; }
+        .video-card.active { flex: 2.5; border: 2px solid var(--c-video); background: #fff5f5; }
+        .video-card.active .video-thumb { width: 140px; height: 90px; border-color: var(--c-video); font-size: 2.5rem; }
+        .video-card.active .video-details { max-height: 200px; opacity: 1; margin-top: 10px; }
+        .video-card.inactive { flex: 0.5; opacity: 0.7; background: #f5f5f5; }
+        .video-card.inactive .video-thumb { width: 40px; height: 30px; margin-right: 10px; font-size: 1rem; }
+        .video-card.inactive .video-details { display: none; }
+        .video-card.inactive .video-title { font-size: 0.9rem; }
+        .video-card.inactive .video-badge { display: none; }
+        /* ▲ 動画ページCSSここまで ▲ */
+
         /* その他の配置調整 */
         .pos-idx-title { width: 80%; margin-top: -150px; }
         .pos-idx-btn-1 { margin-top: 0px; margin-left: -150px; width: 180px; }
@@ -379,7 +400,7 @@
                                     <div class="photo-row">
                                         <div class="photo-frame clickable" onclick="window.open('https://editor.wix.com/html/editor/web/renderer/external_preview/document/6ec656ad-b263-499c-97e6-a3cf63a1752b?metaSiteId=858a8e86-1498-4f2b-9f3f-4037c74623b7&dsOrigin=externalPreview&configName=externalPreview', '_blank')"><div class="photo-num">20</div><img src="20_志賀.jpg" alt="" loading="lazy"></div>
                                         <div class="photo-frame clickable" onclick="window.open('https://editor.wix.com/html/editor/web/renderer/external_preview/document/dcb3fb34-6b1d-4db7-8503-315af5ea9f31?metaSiteId=db11338d-ce41-4e9e-ac33-d0b63140ee84&dsOrigin=externalPreview&configName=externalPreview', '_blank')"><div class="photo-num">22</div><img src="22_竹内.jpg" alt="" loading="lazy"></div>
-                                        <div class="photo-frame clickable" onclick="window.open('https://editor.wix.com/html/editor/web/renderer/external_preview/document/9d36a69e-8e52-40e1-8608-c00de9d3f2ec?metaSiteId=8667bbc0-0b0a-4cf4-8c94-918aefd2f53c&dsOrigin=externalPreview&configName=externalPreview', '_blank')"><div class="photo-num">23</div><img src="23_田村.jpg" alt="" loading="lazy"></div>
+                                        <div class="photo-frame clickable" onclick="window.open('https://uma67414.wixsite.com/website-18', '_blank')"><div class="photo-num">23</div><img src="23_田村.jpg" alt="" loading="lazy"></div>
                                     </div>
                                     <div class="photo-row">
                                         <div class="photo-frame clickable" onclick="window.open('https://editor.wix.com/html/editor/web/renderer/external_preview/document/f8f30282-2133-450e-ad45-196f869fd3cb?metaSiteId=660db61b-b12f-4617-95b8-0ba583e673af&dsOrigin=externalPreview&configName=externalPreview', '_blank')"><div class="photo-num">24</div><img src="24_タン.jpg" alt="" loading="lazy"></div>
@@ -396,7 +417,6 @@
                                 <div class="photo-frame clickable" onclick="window.open('https://editor.wix.com/html/editor/web/renderer/external_preview/document/9a4e97b8-35ca-4785-978d-09c6cdeb5422?metaSiteId=50af2d1b-2ae0-4a3b-a655-7b90008e11a4&dsOrigin=externalPreview&configName=externalPreview', '_blank')"><div class="photo-num">34</div><img src="34_古牧.jpg" alt="" loading="lazy"></div>
                                 <div class="photo-frame clickable" onclick="window.open('https://editor.wix.com/html/editor/web/renderer/external_preview/document/4b5cf0ed-8d2e-4360-a97a-eef73e1d4cca?metaSiteId=75bcbe76-0940-4968-98b9-40db12d615f3&dsOrigin=externalPreview&configName=externalPreview', '_blank')"><div class="photo-num">35</div><img src="35_マー.jpg" alt="" loading="lazy"></div>
                                 <div class="photo-frame clickable" onclick="window.open('https://editor.wix.com/html/editor/web/renderer/external_preview/document/a443b4fe-e70c-481a-a156-9019de31171a?metaSiteId=4d4164ed-97cb-4433-926e-618b89b2dfe6&dsOrigin=externalPreview&configName=externalPreview', '_blank')"><div class="photo-num">36</div><img src="36_眞木.jpg" alt="" loading="lazy"></div>
-                                
                                 <div class="photo-frame clickable" onclick="window.open('https://uma67414.wixsite.com/website-1', '_blank')"><div class="photo-num">37</div><img src="37_三浦.jpg" alt="" loading="lazy"></div>
                                 <div class="photo-frame clickable" onclick="window.open('https://editor.wix.com/html/editor/web/renderer/external_preview/document/709aa8cc-ec20-4964-b92d-921504737d65?metaSiteId=d13e5604-fbe0-41d4-87b0-5cc1094449d8&dsOrigin=externalPreview&configName=externalPreview', '_blank')"><div class="photo-num">38</div><img src="38_森田.jpg" alt="" loading="lazy"></div>
                                 <div class="photo-frame clickable" onclick="window.open('https://editor.wix.com/html/editor/web/renderer/external_preview/document/69854146-f2f1-4706-b67f-6263b0557353?metaSiteId=314a893e-6e17-41cd-9e1e-e7f7b42dd23f&dsOrigin=externalPreview&configName=externalPreview', '_blank')"><div class="photo-num">41</div><img src="41_志村.jpg" alt="" loading="lazy"></div>
@@ -455,15 +475,66 @@
                 </div>
 
                 <div class="page-layer" id="page-video" style="background: var(--c-video);">
-                    <div class="popup-object pos-video-main delay-2">
-                        <div class="card" style="background:#222; color:#fff;">
-                            <h3>卒業制作発表会</h3>
-                            <div style="font-size:4rem; margin:20px 0;">▶️</div>
-                            <p style="color:#aaa;">Click to Play</p>
+                    <div class="popup-object video-board-container delay-2" id="video-container">
+                        
+                        <div class="video-card" onclick="expandVideo(this)">
+                            <div class="video-badge">Movie 1</div>
+                            <div class="video-inner">
+                                <div class="video-thumb">▶️</div>
+                                <div class="video-info">
+                                    <h3 class="video-title">24CRコメント</h3>
+                                    <div class="video-details">
+                                        <p class="gp-comment">クラスみんなからのメッセージ動画です。</p>
+                                        <a href="https://drive.google.com/drive/folders/1_V3XGi2DNW0BCsjD02PasXeiTljI0Vgz" target="_blank" class="play-link">▶️ 動画を再生する</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+                        <div class="video-card" onclick="expandVideo(this)">
+                            <div class="video-badge">Movie 2</div>
+                            <div class="video-inner">
+                                <div class="video-thumb">▶️</div>
+                                <div class="video-info">
+                                    <h3 class="video-title">古牧光高都市伝説</h3>
+                                    <div class="video-details">
+                                        <p class="gp-comment">信じるか信じないかは、あなた次第...</p>
+                                        <a href="https://drive.google.com/drive/folders/1_V3XGi2DNW0BCsjD02PasXeiTljI0Vgz" target="_blank" class="play-link">▶️ 動画を再生する</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="video-card" onclick="expandVideo(this)">
+                            <div class="video-badge">Movie 3</div>
+                            <div class="video-inner">
+                                <div class="video-thumb">▶️</div>
+                                <div class="video-info">
+                                    <h3 class="video-title">小泉がぶっちゃける!!24CR組みたいティア表</h3>
+                                    <div class="video-details">
+                                        <p class="gp-comment">禁断のティア表がついに公開！</p>
+                                        <a href="https://drive.google.com/drive/folders/1_V3XGi2DNW0BCsjD02PasXeiTljI0Vgz" target="_blank" class="play-link">▶️ 動画を再生する</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="video-card" onclick="expandVideo(this)">
+                            <div class="video-badge">Movie 4</div>
+                            <div class="video-inner">
+                                <div class="video-thumb">▶️</div>
+                                <div class="video-info">
+                                    <h3 class="video-title">ラップバトル動画</h3>
+                                    <div class="video-details">
+                                        <p class="gp-comment">熱きMCバトルを見逃すな！</p>
+                                        <a href="https://drive.google.com/drive/folders/1_V3XGi2DNW0BCsjD02PasXeiTljI0Vgz" target="_blank" class="play-link">▶️ 動画を再生する</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-
                 <div class="page-layer" id="page-kentei" style="background: var(--c-kentei);">
                     <div class="popup-object pos-kentei-box delay-2">
                         <div class="card">
@@ -550,6 +621,8 @@
             leftContent.style.opacity = 0;
             
             if(currentPageId === 'page-works') resetGpCards();
+            /* ▼ 追加：動画ページを離れる時にアコーディオンを閉じる ▼ */
+            if(currentPageId === 'page-video') resetVideoCards();
 
             setTimeout(() => {
                 document.querySelectorAll('.page-layer').forEach(p => p.classList.remove('active'));
@@ -629,6 +702,34 @@
             });
         }
 
+        /* --- ▼【追加】動画カードのアクション ▼ --- */
+        function expandVideo(clickedCard) {
+            const container = document.getElementById('video-container');
+            const allCards = container.querySelectorAll('.video-card');
+            if (clickedCard.classList.contains('active')) {
+                resetVideoCards();
+                return;
+            }
+            allCards.forEach(card => {
+                if (card === clickedCard) {
+                    card.classList.add('active');
+                    card.classList.remove('inactive');
+                } else {
+                    card.classList.remove('active');
+                    card.classList.add('inactive');
+                }
+            });
+        }
+
+        function resetVideoCards() {
+            const cards = document.querySelectorAll('.video-card');
+            cards.forEach(card => {
+                card.classList.remove('active');
+                card.classList.remove('inactive');
+            });
+        }
+        /* ------------------------------------------- */
+
         function createPetal() {
             const sakura = document.getElementById('sakura');
             const petal = document.createElement('div');
@@ -641,7 +742,6 @@
             setTimeout(() => petal.remove(), 9000);
         }
         
-        // ▼ アニメーションの生成頻度を下げて軽くしました（400ms → 900ms） ▼
         setInterval(createPetal, 900);
     </script>
 </body>
